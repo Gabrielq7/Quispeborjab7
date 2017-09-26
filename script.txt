@@ -1,0 +1,170 @@
+------VI.1.2 Selección de columnas 
+
+--------1. Desarrolle una sentencia SELECT para consultar el id, nombre, apellido y email de todos los alumnos. Base de datos EDUTEC. 
+SELECT IdAlumno,NomAlumno,ApeAlumno
+FROM Edutec.dbo.Alumno
+-----
+IdAlumno NomAlumno                      ApeAlumno
+-------- ------------------------------ ------------------------------
+A0001    Christian                      Donayre Mena
+A0002    Freddy                         Ortiz Rodriguez
+A0003    Ruth Ketty                     Silva Mejia
+A0004    Liliana                        Melendez Noriega
+A0005    Silvia                         Huerta Leon
+A0006    Maria Elena                    Carranza Fuentes
+
+---------------------------------------
+
+----------2. Desarrolle una sentencia SELECT para consultar el id, nombre, apellido y email de todos los profesores. Base de datos EDUTEC
+SELECT IdProfesor,NomProfesor,ApeProfesor,emailProfesor
+FROM Edutec.dbo.profesor;
+------
+IdProfesor NomProfesor                    ApeProfesor                    emailProfesor
+---------- ------------------------------ ------------------------------ ----------------------------------------
+P001       Pedro Hugo                     Valencia Morales               hugovm@terra.com.pe
+P002       Eric Gustavo                   Coronel Castillo               gcoronel@uni.edu.pe
+P003       Pedro Pablo                    Diaz Vilela                    pdiaz@edutec.pe
+P004       Sergio                         Matsukawa Maeda                smatsukawa@isil.edu.pe
+
+--------
+-----3. Desarrolle una sentencia SELECT para obtener de cada curso programado la siguiente información: id, id del curso, id del ciclo, Precio y horario. Base de datos EDUTEC. 
+SELECT IdCursoProg,IdCurso,IdCiclo,PreCursoProg,Horario
+from Edutec.dbo.CursoProgramado;
+------
+IdCursoProg IdCurso IdCiclo PreCursoProg          Horario
+----------- ------- ------- --------------------- ------------------------------
+1           C012    1978-01 500,00                Lu y Mi 19-22
+2           C004    1978-01 700,00                Lu y Mi 19-22
+3           C014    1978-01 700,00                Vi y Sa 19-22
+4           C006    1978-01 700,00                Ma y Ju 19-22
+5           C011    1978-01 700,00                Lu y Mi 19-22
+-----------
+-------4. Desarrolle una sentencia SELECT para consultar el nombre, apellido y email de los empleados de la base de datos RH. 
+SELECT NOMBRE,APELLIDO,EMAIL
+FROM RH.DBO.empleado;
+
+-----
+NOMBRE            APELLIDO                 EMAIL
+------------ -------------------- --------------------------
+Gustavo      Coronel               gcoronelc@gmail.com
+Claudia      Fernandez             cfernandez@perudev.com
+Sergio       Matsukawa             smatsukawa@perudev.com
+Mariela      Diaz                  mdiaz@perudev.com
+-----------
+-------5. Desarrolle una sentencia SELECT para consultar el nombre,  vacantes y precio de cada curso de la base de datos EDUCA. 
+SELECT CUR_NOMBRE,CUR_VACANTES,CUR_PRECIO
+FROM EDUCA.DBO.CURSO
+--
+CUR_NOMBRE                                                                                           CUR_VACANTES CUR_PRECIO
+---------------------------------------------------------------------------------------------------- ------------ ---------------------
+SQL Server Implementación                                                                            24           1000,00
+SQL Server Administración                                                                            24           1000,00
+Inteligencia de Negocios                                                                             24           1500,00
+Programación Transact-SQL                                                                            24           1200,00
+Java Fundamentos                                                                                     24           1600,00
+Java Cliente-Servidor                                                                                24           1600,00
+-------------------
+
+---VI.1.3 Campos calculados 
+----6. Desarrollar una sentencia SELECT que permita obtener el importe que se obtendría por cada curso programado si se logra vender todas las vacantes. Base de datos EDUTEC.
+ -----
+ SELECT IdCursoProg,NomCurso,PreCursoProg,Vacantes
+  from EDUTEC.dbo.Curso,EDUTEC.dbo.CursoProgramado;
+ ---------
+ IdCursoProg NomCurso                                           PreCursoProg          Vacantes
+----------- -------------------------------------------------- --------------------- ---------------------------------------
+1           SO Windows                                         500,00                10
+2           SO Windows                                         700,00                0
+3           SO Windows                                         700,00                13
+4           SO Windows                                         700,00                11
+------------
+ --------7. Desarrollar una sentencia SELECT que permita obtener el importe recaudado por cada curso programado. Base de datos EDUTEC. 
+ SELECT PreCursoProg
+ from EduTec.dbo.CursoProgramado
+ ---
+ PreCursoProg
+---------------------
+500,00
+700,00
+700,00
+700,00
+700,00
+ --------8. Desarrollar una sentencia SELECT para consultar el nombre y apellido de un empleado en una sola columna. Base de datos RH. 
+ select nombre +' '+ apellido
+ from RH.dbo.empleado;
+ nombre     apellido
+------------------------
+Gustavo Coronel
+Claudia Fernandez
+Sergio Matsukawa
+Mariela Diaz
+Roberto Martinez
+Miguel Espinoza
+ -------9. Desarrollar una sentencia SELECT que permita obtener el importe que se obtendría si se logra vender todas las vacantes por cada curso. Base de datos EDUCA.
+ select cur_nombre,cur_precio,cur_vacantes
+ from educa.dbo.CURSO
+ ----
+ cur_nombre                                                                                           cur_precio            cur_vacantes
+---------------------------------------------------------------------------------------------------- --------------------- ------------
+SQL Server Implementación                                                                            1000,00               24
+SQL Server Administración                                                                            1000,00               24
+Inteligencia de Negocios                                                                             1500,00               24
+Programación Transact-SQL                                                                            1200,00               24
+-----
+ -------- 10. Desarrolle una sentencia SELECT que permita obtener el importe que se obtendría por cada producto si se venden todas las unidades que hay en stock. Base de datos NORTHWIND. 
+ select ProductID,ProductName,UnitsInStock,UnitPrice
+ from Northwind.dbo.Products
+ --------------
+ ProductID   ProductName                              UnitsInStock UnitPrice
+----------- ---------------------------------------- ------------ ---------------------
+1           Chai                                     39           18,00
+2           Chang                                    17           19,00
+3           Aniseed Syrup                            13           10,00
+------------
+------------VI.2 FILTRO DE FILAS 
+---------11. Desarrollar una sentencia SELECT para consultar los empleados del departamento de contabilidad. Base de datos RH.
+use rh
+go
+select nombre,idcargo,iddepartamento
+from rh.dbo.cargo,dbo.departamento
+WHERE idcargo,nombre ='c04'
+or idcargo = 'contabilidad'
+
+select nombre
+from rh.dbo.empleado,dbo.departamento
+where nombre ='101'
+
+use RH
+from dbo.departamento;
+select nombre
+
+select * from empleado
+select * from control
+select * from cargo
+select * from departamento
+
+select nombre nombre
+from rh.dbo.empleado.dbo.departamento
+---------
+select nombre,alu_nombre
+from rh.dbo.departamento nombre
+left join educa.dbo.ALUMNO alu_nombre
+on EDUCA.alu_nombre = rh.nombre 
+where rh.nombre is null
+
+select nombre
+from rh.dbo.departamento
+
+USE RH 
+GO  
+select nombre
+from empleado,departamento
+SELECT idempleado
+FROM empleado,departamento
+WHERE car_nombre = 'contabilidad' ;  
+GO 
+-----------12. Desarrolle una sentencia SELECT para consultar los cursos programados del ciclo 2013-02 de la base de datos EDUTEC. 
+--------- 13. Desarrolle una sentencia SELECT para consultar los cursos programados del profesor GUSTAVO CORONEL. base de datos EDUTEC.
+---------14. Desarrolle una sentencia SELECT para consultar los productos que su precio es mayor a 20 Dólares. Base de datos NORTHWIND. 
+---------15. Desarrolle una sentencia SELECT para consultar los pedidos de Antonio Moreno Taquería. Base de datos NORTHWIND
+
